@@ -13,7 +13,7 @@ class Artist extends Component {
             <div className="artist">
                 <ListGroupItem
                     className="artist__item"
-                    href={'/MusicSearch/artist/' + this.props.artist.name}
+                    href={'/MSA/artist/' + this.props.artist.name}
                     onClick={() => { this.onChoseArtist(this.props.artist) }}>
                     {this.props.artist.name}
 

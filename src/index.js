@@ -6,7 +6,7 @@ import App from './App';
 import { BrowserRouter } from 'react-router-dom';
 
 const MSApp = () => (
-    <BrowserRouter basename="/MusicSearch/">
+    <BrowserRouter basename="/MSA/">
       <App />
     </BrowserRouter>
   )

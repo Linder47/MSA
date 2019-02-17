@@ -13,7 +13,7 @@ class Album extends Component {
                 <Thumbnail
                     src={this.props.image}
                     alt={this.props.id}
-                    href={'/MusicSearch/album/' + this.props.name}
+                    href={'/MSA/album/' + this.props.name}
                     onClick={() => { this.onChoseAlbum(this.props.album) } }/>
             </div>
         )
