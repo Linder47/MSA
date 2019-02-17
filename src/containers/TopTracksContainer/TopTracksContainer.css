@@ -1,0 +1,25 @@
+.topTracks__tracks {
+  display: flex;
+  flex-direction: row;
+  /* margin: auto; */
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+.topTracks__cont {
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.errorText {
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 27px;
+}
+
+.container {
+  padding-top: 30px;
+}
