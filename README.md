@@ -8,4 +8,4 @@ Build with:
 - React
 - React Router
 
-You can try it on GitHub Pages: https://linder47.github.io/MusicSearch/
+You can try it on GitHub Pages: https://linder47.github.io/MSA/
