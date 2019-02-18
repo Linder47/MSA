@@ -2,5 +2,22 @@
   width: 300px;
   height: 300px;
   margin-right: 30px;
-  margin-bottom: 30px;
+  margin-bottom: 40px;
+}
+
+.topTrack:nth-child(2n) {
+  margin-right: 0;
+}
+
+.textName {
+  display: flex;
+  padding: 5px;
+  /* margin-bottom: 5px; */
+  background-color: #fff;
+}
+
+.textName p {
+  display: flex;
+  margin: auto;
+  font-weight: 900;
 }

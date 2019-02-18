@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import './Albums.css';
+import './TopTracksContainer.css';
+import TopTrack from '../../components/TopTrack/TopTrack';
 import Album from '../../components/Album/Album';
 import { ButtonToolbar, Button, Panel } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
@@ -35,11 +36,41 @@ class TopTracksContainer extends Component {
   }
 
 
+
   render() {
     const { error, isLoaded, topArtists } = this.state;
     console.log(topArtists);
+    // let topArtistsAcc2 = topArtists.artist ? topArtists.artist : null;
+    // let topArtistsAcc = topArtistsAcc2 != null ? topArtistsAcc2.slice(9) : [];
+    // console.log(topArtistsAcc);
 
-    
+    if (error) {
+      return (
+        <div className="errorText">Error: {error.message}</div>
+      )
+    } else if (!isLoaded || topArtists.length === 0) {
+      return null;
+    } else {
+      console.log(topArtists.artist);
+      // console.log(topArtistsAcc);
+      const newTopArtistsArr = topArtists.artist.length > 1 ? topArtists.artist.splice(0, 4) : topArtists.artist;
+      console.log(newTopArtistsArr);
+      return (
+        <div className='topTracks__tracks  container'>
+        <div className="topTracksContainer__text"><p>Popular right now</p></div>
+          <div className='topTracks__cont'>
+            {newTopArtistsArr.map(artist =>
+              artist.image[3]["#text"] ? <TopTrack
+                name={artist.name}
+                key={artist.name + artist.playcount}
+                id={artist.name + artist.playcount}
+                image={artist.image[3]["#text"]}
+              /> : null
+            )}
+          </div>
+        </div>
+      )
+    }
   }
 }
 

@@ -16,6 +16,7 @@ class TopTrack extends Component {
                     // href={'/MSA/album/' + this.props.name}
                     // onClick={() => { this.onChoseAlbum(this.props.album) } }
                     />
+                    <div className="textName"><p>{this.props.name}</p></div>
             </div>
         )
     }

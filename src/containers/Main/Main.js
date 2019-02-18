@@ -3,7 +3,7 @@ import './Main.css';
 import TopTrack from '../../components/TopTrack/TopTrack';
 import ArtistSearchResult from '../../components/ArtistSearchResult/ArtistSearchResult';
 import UserSearch from '../../components/UserSearch/UserSearch';
-
+import TopTracksContainer from '../TopTracksContainer/TopTracksContainer';
 
 class Main extends Component {
   state = {
@@ -83,13 +83,12 @@ class Main extends Component {
   }
 
   render() {
-    const { error, isLoaded, topArtists } = this.state;
-    console.log(topArtists);
+    // const { error, isLoaded, topArtists } = this.state;
+    // console.log(topArtists);
     // let topArtistsAcc2 = topArtists.artist ? topArtists.artist : null;
     // let topArtistsAcc = topArtistsAcc2 != null ? topArtistsAcc2.slice(9) : [];
     // console.log(topArtistsAcc);
 
-    if (error) {
       return (
         <div>
           <div className='main'>
@@ -101,53 +100,9 @@ class Main extends Component {
               searchingArtist={this.state.oldArtist} />
               : null}
           </div>
-          <div className="errorText">Error: {error.message}</div>
-        </div >
-      )
-    } else if (!isLoaded || topArtists.length === 0) {
-      return (
-          <div className='main'>
-            <UserSearch
-              onAddTextChange={this.handleAddTextChange}
-              value={this.state.addText}
-              onAddSearch={this.handleAddSearch} />
-            {this.state.searched ? <ArtistSearchResult
-              searchingArtist={this.state.oldArtist} />
-              : null}
-          </div>
-      )
-    } else {
-      console.log(topArtists.artist);
-      // console.log(topArtistsAcc);
-      const newTopArtistsArr = topArtists.artist.length > 1 ? topArtists.artist.splice(0, 4) : topArtists.artist;
-      console.log(newTopArtistsArr);
-      return (
-        <div>
-          <div className='main'>
-            <UserSearch
-              onAddTextChange={this.handleAddTextChange}
-              value={this.state.addText}
-              onAddSearch={this.handleAddSearch} />
-            {this.state.searched ? <ArtistSearchResult
-              searchingArtist={this.state.oldArtist} />
-              : null}
-          </div>
-
-          <div className='topTracks__tracks  container'>
-            <div className='topTracks__cont'>
-              { newTopArtistsArr.map(artist =>
-                  artist.image[3]["#text"] ? <TopTrack
-                    name={artist.name}
-                    key={artist.name + artist.playcount}
-                    id={artist.name + artist.playcount}
-                    image={artist.image[3]["#text"]}
-                  /> : null
-                )}
-            </div>
-          </div>
+          {this.state.searched ? null : <TopTracksContainer />}
         </div>
       )
-    }
   }
 }
 
