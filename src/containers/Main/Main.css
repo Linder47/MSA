@@ -15,3 +15,43 @@
     /* background-color: #fff; */
 }
 
+.topTracks__tracks {
+  display: flex;
+  flex-direction: row;
+  /* margin: auto; */
+  margin-left: 10px;
+  margin-top: 13px;
+}
+
+.topTracks__cont {
+  display: flex;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.errorText {
+  display: flex;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 27px;
+}
+
+.container {
+  padding-top: 30px;
+  padding-bottom: 25px;
+}
+
+.topTracksContainer__text {
+  display: flex;
+  margin-bottom: 20px;
+  margin-top: -10px;
+}
+
+.topTracksContainer__text p {
+  display: flex;
+    margin: auto;
+    text-transform: uppercase;
+    font-weight: 800;
+    color: #c5afcc;
+}

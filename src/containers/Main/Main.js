@@ -3,7 +3,6 @@ import './Main.css';
 import TopTrack from '../../components/TopTrack/TopTrack';
 import ArtistSearchResult from '../../components/ArtistSearchResult/ArtistSearchResult';
 import UserSearch from '../../components/UserSearch/UserSearch';
-import TopTracksContainer from '../TopTracksContainer/TopTracksContainer';
 
 class Main extends Component {
   state = {
@@ -11,9 +10,9 @@ class Main extends Component {
     searched: false,
     oldArtist: '',
     artistData: [],
-    // topArtists: [],
-    // error: null,
-    // isLoaded: false
+    topArtists: [],
+    error: null,
+    isLoaded: false
   }
 
   componentWillMount() {
@@ -60,26 +59,28 @@ class Main extends Component {
       });
     }
 
-    // const URL_BASIC = 'https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists';
-    // const API_KEY = '&api_key=0b6cf004801c7d4b103426b29c6e006b&format=json';
-    // const URL = URL_BASIC + API_KEY;
+    console.log('one');
 
-    // fetch(URL)
-    //   .then(res => res.json())
-    //   .then((result) => {
-    //     this.setState({
-    //       isLoaded: true,
-    //       topArtists: result.artists
-    //     });
-    //   },
+    const URL_BASIC = 'https://ws.audioscrobbler.com/2.0/?method=chart.gettopartists';
+    const API_KEY = '&api_key=0b6cf004801c7d4b103426b29c6e006b&format=json';
+    const URL = URL_BASIC + API_KEY;
 
-    //     (error) => {
-    //       this.setState({
-    //         isLoaded: true,
-    //         error
-    //       });
-    //     }
-    //   );
+    fetch(URL)
+      .then(res => res.json())
+      .then((result) => {
+        this.setState({
+          isLoaded: true,
+          topArtists: result.artists
+        });
+      },
+
+        (error) => {
+          this.setState({
+            isLoaded: true,
+            error
+          });
+        }
+      );
   }
 
   render() {
@@ -88,6 +89,56 @@ class Main extends Component {
     // let topArtistsAcc2 = topArtists.artist ? topArtists.artist : null;
     // let topArtistsAcc = topArtistsAcc2 != null ? topArtistsAcc2.slice(9) : [];
     // console.log(topArtistsAcc);
+    const { error, isLoaded, topArtists } = this.state;
+    console.log(topArtists);
+    // <div>
+    //   <div className='main'>
+    //     <UserSearch
+    //       onAddTextChange={this.handleAddTextChange}
+    //       value={this.state.addText}
+    //       onAddSearch={this.handleAddSearch} />
+    //     {this.state.searched ? <ArtistSearchResult
+    //       searchingArtist={this.state.oldArtist} />
+    //       : null}
+    //   </div>
+    //   {this.state.searched ? null : <TopTracksContainer />}
+    // </div>
+
+
+
+
+
+    if (error) {
+      return (
+        <div>
+          <div className='main'>
+            <UserSearch
+              onAddTextChange={this.handleAddTextChange}
+              value={this.state.addText}
+              onAddSearch={this.handleAddSearch} />
+            {this.state.searched ? <ArtistSearchResult
+              searchingArtist={this.state.oldArtist} />
+              : null}
+          </div>
+          {this.state.searched ? null : <div className="errorText">Error: {error.message}</div>}
+        </div>
+      )
+    } else if (!isLoaded || topArtists.length === 0) {
+      return (
+        <div className='main'>
+          <UserSearch
+            onAddTextChange={this.handleAddTextChange}
+            value={this.state.addText}
+            onAddSearch={this.handleAddSearch} />
+          {this.state.searched ? <ArtistSearchResult
+            searchingArtist={this.state.oldArtist} />
+            : null}
+        </div>
+      );
+    } else {
+      console.log(topArtists.artist);
+      const newTopArtistsArr = topArtists.artist.length > 1 ? topArtists.artist.slice(0, 4) : topArtists.artist;
+      console.log(newTopArtistsArr);
 
       return (
         <div>
@@ -100,9 +151,23 @@ class Main extends Component {
               searchingArtist={this.state.oldArtist} />
               : null}
           </div>
-          {this.state.searched ? null : <TopTracksContainer />}
+          {this.state.searched === false ? 
+          <div className='topTracks__tracks  container'>
+            <div className="topTracksContainer__text"><p>Popular right now</p></div>
+            <div className='topTracks__cont'>
+              {newTopArtistsArr.map(artist =>
+                artist.image[3]["#text"] ? <TopTrack
+                  name={artist.name}
+                  key={artist.name + artist.playcount}
+                  id={artist.name + artist.playcount}
+                  image={artist.image[3]["#text"]}
+                /> : null
+              )}
+            </div>
+          </div> : null}
         </div>
       )
+    }
   }
 }
 
