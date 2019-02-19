@@ -84,29 +84,8 @@ class Main extends Component {
   }
 
   render() {
-    // const { error, isLoaded, topArtists } = this.state;
-    // console.log(topArtists);
-    // let topArtistsAcc2 = topArtists.artist ? topArtists.artist : null;
-    // let topArtistsAcc = topArtistsAcc2 != null ? topArtistsAcc2.slice(9) : [];
-    // console.log(topArtistsAcc);
     const { error, isLoaded, topArtists } = this.state;
     console.log(topArtists);
-    // <div>
-    //   <div className='main'>
-    //     <UserSearch
-    //       onAddTextChange={this.handleAddTextChange}
-    //       value={this.state.addText}
-    //       onAddSearch={this.handleAddSearch} />
-    //     {this.state.searched ? <ArtistSearchResult
-    //       searchingArtist={this.state.oldArtist} />
-    //       : null}
-    //   </div>
-    //   {this.state.searched ? null : <TopTracksContainer />}
-    // </div>
-
-
-
-
 
     if (error) {
       return (

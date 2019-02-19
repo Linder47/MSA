@@ -11,7 +11,8 @@ class Albums extends Component {
     error: null,
     isLoaded: false,
     chosenArtist: '',
-    artistData: []
+    artistData: [],
+    inSubscrubitions: false
   }
 
   componentWillMount() {
@@ -48,10 +49,43 @@ class Albums extends Component {
           });
         }
       );
+
+      if (localStorage.getItem('mySubscribtions')) {
+        const subscrubs = localStorage.getItem('mySubscribtions');
+        console.log(subscrubs);
+        console.log(subscrubs.name);
+        console.log(subscrubs.some(({name}) => name === this.state.chosenArtist));
+        if (subscrubs.some(({name}) => name === this.state.chosenArtist)) {
+          this.setState({
+            inSubscrubitions: true
+          });       
+          console.log('true');
+        }
+      }
   }
 
   onComeBackSearching = () => {
     this.props.history.goBack();
+  }
+
+  onSubscribe = () => {
+    console.log('here');
+    let a = [];
+    const b = localStorage.getItem('mySubscribtions') !== null || undefined ? JSON.parse(localStorage.getItem('mySubscribtions')) : null;
+    console.log('b ', b);
+    let id;
+    if (b === null) {
+      id = 0;
+    } else {
+      a = b;
+      id = Number(a[a.length - 1].id) + 1;
+    }
+
+    const data = {
+      'id': id, 'name': this.state.chosenArtist
+    };
+    a.push(data);
+    localStorage.setItem('mySubscribtions', JSON.stringify(a));
   }
 
   render() {
@@ -69,7 +103,8 @@ class Albums extends Component {
       return (
         <div className='container  container--albums'>
           <Panel>
-            <Panel.Title componentClass="h3" className="title">Альбомы {this.state.chosenArtist}: </Panel.Title>
+            <Panel.Title componentClass="h3" className="title">Albums</Panel.Title>
+            <div className="subElementCont"><div class="heart" onClick={() => { this.onSubscribe() }}></div></div>
           </Panel>
           <ButtonToolbar>
             <Button className="button__albums" onClick={() => { this.onComeBackSearching() }}>Назад</Button>

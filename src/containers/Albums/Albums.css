@@ -57,3 +57,78 @@
     margin-top: 20px;
     margin-bottom: 27px;
 }
+
+.subElementCont {
+  width: 30px;
+  height: 30px;
+}
+
+.subscribeElement {
+  position: absolute;
+  margin: auto;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color:pink;
+  height: 35px;
+  width: 35px;
+  transform: rotate(-45deg);
+}
+.subscribeElement:after {
+  background-color: pink;
+  content: "";
+  border-radius: 50%;
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: 0px;
+  left: 25px;
+}
+.subscribeElement:before {
+  content: "";
+  background-color: pink;
+  border-radius: 50%;
+  position: absolute;
+  height: 35px;
+  width: 35px;
+  top: -25px;
+  left: 0px;
+}
+
+.heart {
+  background-color: #cb9dd2;
+  display: inline-block;
+  height: 30px;
+  margin: 0 10px;
+  position: relative;
+  top: 0;
+  transform: rotate(-45deg);
+  width: 30px;
+  left: 368px;
+}
+
+.heart:hover {
+  cursor: pointer;
+
+}
+
+.heart:before,
+.heart:after {
+  content: "";
+  background-color: #cb9dd2;
+  border-radius: 50%;
+  height: 30px;
+  position: absolute;
+  width: 30px;
+}
+
+.heart:before {
+  top: -15px;
+  left: 0;
+}
+
+.heart:after {
+  left: 15px;
+  top: 0;
+}
