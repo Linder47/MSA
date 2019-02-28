@@ -10,6 +10,6 @@ const MSApp = () => (
       <App />
     </BrowserRouter>
   )
-
+ 
 ReactDOM.render(<MSApp />, document.getElementById('root'));
 registerServiceWorker();
