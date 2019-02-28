@@ -18,7 +18,7 @@ const App = () => {
           <Route path='/' component={Main} />
         </Switch>
       </div>
-    )
+    ) 
   }
 
 export default App;
