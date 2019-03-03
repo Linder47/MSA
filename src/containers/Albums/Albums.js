@@ -50,18 +50,19 @@ class Albums extends Component {
         }
       );
 
-      if (localStorage.getItem('mySubscribtions')) {
-        const subscrubs = localStorage.getItem('mySubscribtions');
-        console.log(subscrubs);
-        console.log(subscrubs.name);
-        console.log(subscrubs.some(({name}) => name === this.state.chosenArtist));
-        if (subscrubs.some(({name}) => name === this.state.chosenArtist)) {
-          this.setState({
-            inSubscrubitions: true
-          });       
-          console.log('true');
-        }
+    if (localStorage.getItem('mySubscribtions')) {
+      const subscrubs = JSON.parse(localStorage.getItem('mySubscribtions'));
+      console.log(subscrubs);
+      console.log(subscrubs[0]);
+      let a = subscrubs.find(obj => obj.name === 'Twenty One Pilots');
+      console.log(a);
+      if (subscrubs.find(obj => obj.name === this.state.chosenArtist)) {
+        this.setState({
+          inSubscrubitions: true
+        });
+        console.log("in subs");
       }
+    }
   }
 
   onComeBackSearching = () => {
@@ -69,27 +70,32 @@ class Albums extends Component {
   }
 
   onSubscribe = () => {
-    console.log('here');
-    let a = [];
-    const b = localStorage.getItem('mySubscribtions') !== null || undefined ? JSON.parse(localStorage.getItem('mySubscribtions')) : null;
-    console.log('b ', b);
-    let id;
-    if (b === null) {
-      id = 0;
-    } else {
-      a = b;
-      id = Number(a[a.length - 1].id) + 1;
-    }
+    // localStorage.clear();
+    if (!this.state.inSubscrubitions) {
+      console.log('all clear');
+      let a = [];
+      const b = localStorage.getItem('mySubscribtions') !== null || undefined ? JSON.parse(localStorage.getItem('mySubscribtions')) : null;
+      console.log('b ', b);
+      let id;
+      if (b === null) {
+        id = 0;
+      } else {
+        a = b;
+        id = Number(a[a.length - 1].id) + 1;
+      }
 
-    const data = {
-      'id': id, 'name': this.state.chosenArtist
-    };
-    a.push(data);
-    localStorage.setItem('mySubscribtions', JSON.stringify(a));
+      const data = {
+        'id': id, 'name': this.state.chosenArtist
+      };
+      a.push(data);
+      localStorage.setItem('mySubscribtions', JSON.stringify(a));
+    }
+    console.log('bye');
   }
 
   render() {
-    const { error, isLoaded, albums } = this.state;
+    const { error, isLoaded, albums, inSubscrubitions } = this.state;
+    const heartColor = inSubscrubitions ? "heart  heart--inSubs" : "heart";
 
     if (error) {
       return <div className="errorText">Error: {error.message}</div>;
@@ -104,7 +110,7 @@ class Albums extends Component {
         <div className='container  container--albums'>
           <Panel>
             <Panel.Title componentClass="h3" className="title">Albums</Panel.Title>
-            <div className="subElementCont"><div class="heart" onClick={() => { this.onSubscribe() }}></div></div>
+            <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div>
           </Panel>
           <ButtonToolbar>
             <Button className="button__albums" onClick={() => { this.onComeBackSearching() }}>Назад</Button>

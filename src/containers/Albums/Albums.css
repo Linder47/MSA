@@ -113,8 +113,8 @@
 
 }
 
-.heart:before,
-.heart:after {
+.heart::before,
+.heart::after {
   content: "";
   background-color: #cb9dd2;
   border-radius: 50%;
@@ -131,4 +131,15 @@
 .heart:after {
   left: 15px;
   top: 0;
+}
+
+.heart--inSubs {
+  background-color: #f2cdf8;
+}
+.heart--inSubs::after,
+.heart--inSubs:before {
+  background-color: #f2cdf8;
+}
+.heart--inSubs{
+  cursor: default;
 }

@@ -12,7 +12,8 @@ class Main extends Component {
     artistData: [],
     topArtists: [],
     error: null,
-    isLoaded: false
+    isLoaded: false,
+    mySubsArr: null
   }
 
   componentWillMount() {
@@ -81,11 +82,26 @@ class Main extends Component {
           });
         }
       );
+
+    if (localStorage.getItem('mySubscribtions')) {
+      let subscrubs = JSON.parse(localStorage.getItem('mySubscribtions'));
+      this.setState({
+        mySubsArr: subscrubs
+      });
+      console.log(subscrubs);
+      console.log('mysubsarr', this.state.mySubsArr);
+    }
+  }
+
+  onMySubs = () => {
+    this.refs.mySubsList.style.display = this.refs.mySubsList.style.display === 'block' ? 'none' : 'block';
   }
 
   render() {
     const { error, isLoaded, topArtists } = this.state;
     console.log(topArtists);
+    const mySubsContent = this.state.mySubsArr;
+    console.log(mySubsContent);
 
     if (error) {
       return (
@@ -118,9 +134,11 @@ class Main extends Component {
       console.log(topArtists.artist);
       const newTopArtistsArr = topArtists.artist.length > 1 ? topArtists.artist.slice(0, 4) : topArtists.artist;
       console.log(newTopArtistsArr);
-
+      //HEREHRE HRE HRE HERE 
       return (
         <div>
+          <div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
+            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist">{artist.name.slice(0,24)}</div>) : null}</div> </div>
           <div className='main'>
             <UserSearch
               onAddTextChange={this.handleAddTextChange}
@@ -130,20 +148,20 @@ class Main extends Component {
               searchingArtist={this.state.oldArtist} />
               : null}
           </div>
-          {this.state.searched === false ? 
-          <div className='topTracks__tracks  container'>
-            <div className="topTracksContainer__text"><p>Popular right now</p></div>
-            <div className='topTracks__cont'>
-              {newTopArtistsArr.map(artist =>
-                artist.image[3]["#text"] ? <TopTrack
-                  name={artist.name}
-                  key={artist.name + artist.playcount}
-                  id={artist.name + artist.playcount}
-                  image={artist.image[3]["#text"]}
-                /> : null
-              )}
-            </div>
-          </div> : null}
+          {this.state.searched === false ?
+            <div className='topTracks__tracks  container'>
+              <div className="topTracksContainer__text"><p>Popular right now</p></div>
+              <div className='topTracks__cont'>
+                {newTopArtistsArr.map(artist =>
+                  artist.image[3]["#text"] ? <TopTrack
+                    name={artist.name}
+                    key={artist.name + artist.playcount}
+                    id={artist.name + artist.playcount}
+                    image={artist.image[3]["#text"]}
+                  /> : null
+                )}
+              </div>
+            </div> : null}
         </div>
       )
     }

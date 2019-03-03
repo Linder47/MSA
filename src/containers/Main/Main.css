@@ -55,3 +55,34 @@
     font-weight: 800;
     color: #c5afcc;
 }
+
+
+.mySubs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  height: auto;
+  max-width: 220px;
+  background-color: #fff;
+  margin-top: -117px;
+  position: absolute;
+}
+.mySubsArtist {
+width: 200px;
+height: 30px;
+padding-right: 10px;
+padding-left: 10px;
+}
+.mySubsText {
+  cursor: pointer;
+  display: flex;
+  text-transform: uppercase;
+  font-weight: 800;
+  color: #c5afcc;
+  height: 40px;
+    padding-top: 10px;
+}
+.mySubsList {
+  display: none;
+}
