@@ -15,10 +15,21 @@
 
 .albums__albums {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     /* margin: auto; */
     margin-left: 10px;
     margin-top: 13px;
+}
+
+.albums__concerts {
+  display: none;
+  /* visibility: hidden; */
+  flex-direction: column;
+  margin: auto;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0;
+  margin-left: -10px;
 }
 
 .albums__cont {

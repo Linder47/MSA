@@ -1,0 +1,5 @@
+.concert {
+  display: block;
+  cursor: default;
+  pointer-events:none;
+}

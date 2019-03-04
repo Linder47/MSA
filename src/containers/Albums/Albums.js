@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './Albums.css';
 import Album from '../../components/Album/Album';
+import Concert from '../../components/Concert/Concert';
 import { ButtonToolbar, Button, Panel } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import Spin from '../../components/Spinner/Spin';
@@ -8,8 +9,10 @@ import Spin from '../../components/Spinner/Spin';
 class Albums extends Component {
   state = {
     albums: [],
+    concerts: null,
     error: null,
     isLoaded: false,
+    isLoadedConcerts: false,
     chosenArtist: '',
     artistData: [],
     inSubscrubitions: false
@@ -49,13 +52,39 @@ class Albums extends Component {
           });
         }
       );
+// 
+    const BST_URL_BASIC = 'https://rest.bandsintown.com/artists/';
+    const BST_API_KEY = '/events?app_id=07ba64cb982c2e21c00598c7b25d7266';
+    const BST_URL = BST_URL_BASIC + chosenArtist + BST_API_KEY;
+
+    fetch(BST_URL)
+      .then(res => res.json())
+      .then((result) => {
+        console.log('here in fetche');
+        console.log('res', result);
+        this.setState({
+          isLoadedConcerts: true,
+          concerts: result
+        });
+      },
+
+        (error) => {
+          this.setState({
+            isLoadedConcerts: true,
+            error
+          });
+        }
+      )
+      .catch((error) => {
+        this.setState({
+          isLoadedConcerts: true,
+          error
+        });
+      });
+
 
     if (localStorage.getItem('mySubscribtions')) {
       const subscrubs = JSON.parse(localStorage.getItem('mySubscribtions'));
-      console.log(subscrubs);
-      console.log(subscrubs[0]);
-      let a = subscrubs.find(obj => obj.name === 'Twenty One Pilots');
-      console.log(a);
       if (subscrubs.find(obj => obj.name === this.state.chosenArtist)) {
         this.setState({
           inSubscrubitions: true
@@ -93,9 +122,22 @@ class Albums extends Component {
     console.log('bye');
   }
 
+  onShowAlbums = () => {
+    this.refs.concerts.style.display="none";
+    this.refs.albums.style.display="flex";
+  }
+
+  onShowConcerts = () => {
+    this.refs.concerts.style.display="flex";
+    // this.refs.concerts.style.visibility="visible";
+    this.refs.albums.style.display="none";
+  }
+
   render() {
-    const { error, isLoaded, albums, inSubscrubitions } = this.state;
+    const { error, isLoaded, albums, inSubscrubitions, concerts, chosenArtist } = this.state;
     const heartColor = inSubscrubitions ? "heart  heart--inSubs" : "heart";
+
+    console.log("concerts in render", this.state.concerts);
 
     if (error) {
       return <div className="errorText">Error: {error.message}</div>;
@@ -109,14 +151,32 @@ class Albums extends Component {
       return (
         <div className='container  container--albums'>
           <Panel>
-            <Panel.Title componentClass="h3" className="title">Albums</Panel.Title>
+            {/* <Panel.Title componentClass="h3" className="title">Albums</Panel.Title> */}
+            <ButtonToolbar>
+            <Button className="button__albums" onClick={() => { this.onShowAlbums() }}>Albums</Button>
             <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div>
-          </Panel>
-          <ButtonToolbar>
-            <Button className="button__albums" onClick={() => { this.onComeBackSearching() }}>Назад</Button>
+            <Button className="button__albums" onClick={() => { this.onShowConcerts() }}>Concerts</Button>
           </ButtonToolbar>
+            {/* <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div> */}
+          </Panel>
+          {/* <ButtonToolbar>
+            <Button className="button__albums" onClick={() => { this.onComeBackSearching() }}>Назад</Button>
+          </ButtonToolbar> */}
           <div className='albums__albums'>
-            <div className='albums__cont'>
+            <div className='albums__concerts' ref="concerts">{ concerts !== null ? concerts.map(concert =>
+                concert ? <Concert
+                    name={chosenArtist}
+                    key={concert.id}
+                    id={concert.id}
+                    country={concert.venue.country}
+                    city={concert.venue.city}
+                    nameOfVenue={concert.venue.name}
+                    datetime={concert.datetime}
+                  /> : <div className="errorText">There's no concerts.</div>
+              ) : null}
+            
+            </div>
+            <div className='albums__cont' ref="albums">
               {albums.album.map(album =>
                 album ?
                   album.image[2]["#text"] ? <Album
@@ -127,7 +187,7 @@ class Albums extends Component {
                     album={album}
                   />
                     : null
-                  : <div className="errorText">Альбомов нет.</div>
+                  : <div className="errorText">There's no albums.</div>
               )}
             </div>
           </div>
