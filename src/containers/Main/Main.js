@@ -3,6 +3,7 @@ import './Main.css';
 import TopTrack from '../../components/TopTrack/TopTrack';
 import ArtistSearchResult from '../../components/ArtistSearchResult/ArtistSearchResult';
 import UserSearch from '../../components/UserSearch/UserSearch';
+import { withRouter } from 'react-router-dom';
 
 class Main extends Component {
   state = {
@@ -97,6 +98,11 @@ class Main extends Component {
     this.refs.mySubsList.style.display = this.refs.mySubsList.style.display === 'block' ? 'none' : 'block';
   }
 
+  onGoToSubSearch = (nameLink) => {
+    const link = '/artist/' + nameLink;
+    this.props.history.push(link);
+  }
+
   render() {
     const { error, isLoaded, topArtists } = this.state;
     console.log(topArtists);
@@ -138,7 +144,7 @@ class Main extends Component {
       return (
         <div>
           <div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist">{artist.name.slice(0,24)}</div>) : null}</div> </div>
+            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <div className='main'>
             <UserSearch
               onAddTextChange={this.handleAddTextChange}
@@ -169,4 +175,4 @@ class Main extends Component {
 }
 
 
-export default Main;
+export default withRouter(Main);

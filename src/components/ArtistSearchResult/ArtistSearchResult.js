@@ -88,6 +88,7 @@ class ArtistSearchResult extends Component {
                                     key={artist.name}
                                     artist={artist}
                                     searchingArtist={this.props.searchingArtist}
+                                    mbid={artist.mbid}
                                 />;
                             })}
                         </ListGroup>

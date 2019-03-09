@@ -3,3 +3,7 @@
   cursor: default;
   pointer-events:none;
 }
+
+.concert a {
+  min-height: 74px;
+}

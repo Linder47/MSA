@@ -16,7 +16,6 @@ class Artist extends Component {
                     href={'/MSA/artist/' + this.props.artist.name}
                     onClick={() => { this.onChoseArtist(this.props.artist) }}>
                     {this.props.artist.name}
-
                 </ListGroupItem>
             </div>
         )
