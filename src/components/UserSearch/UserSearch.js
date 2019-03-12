@@ -9,7 +9,7 @@ const UserSearch = (props) => {
                 <FormGroup controlId='formHorizontalSearch'>
                     <Row className="form__input">
                         <Col className="form__search-label-col" componentClass={ControlLabel} sm={2}>
-                            <p className="form__search-label">Поиск:</p>
+                            <p className="form__search-label">Artist:</p>
                         </Col>
                         <Col sm={8}>
                             <FormControl
@@ -21,7 +21,7 @@ const UserSearch = (props) => {
                         </Col>
                         <Col className="form__button-col" sm={2}>
                             <Button className="form__button" type='submit'>
-                                Искать</Button>
+                                Search</Button>
                         </Col>
                     </Row>
                 </FormGroup>

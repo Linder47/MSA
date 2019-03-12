@@ -79,7 +79,7 @@ class ArtistSearchResult extends Component {
             return (
                 <div>
                     <Panel>
-                        <Panel.Title componentClass="h3" className="panel__title">Результаты поиска по {this.props.searchingArtist}: </Panel.Title>
+                        <Panel.Title componentClass="h3" className="panel__title">Search results: </Panel.Title>
                     </Panel>
                     <Panel.Body className="panel__body">
                         <ListGroup>

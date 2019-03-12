@@ -161,7 +161,7 @@ class Albums extends Component {
     } else if (!isLoaded) {
       return (
         <div><div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-         <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+          <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <div className='container  container--albums'>
             <Spin />
           </div>
@@ -170,21 +170,21 @@ class Albums extends Component {
     } else {
       return (
         <div>
-          <div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-          <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+          <div className="mySubs  mySubs--albums"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
+            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+          <ButtonToolbar>
+            <Button className="button__albums--back" onClick={() => { this.onComeBackSearching() }}>Back</Button>
+          </ButtonToolbar>
           <div className='container  container--albums'>
             <Panel>
               {/* <Panel.Title componentClass="h3" className="title">Albums</Panel.Title> */}
-              <ButtonToolbar>
+              <ButtonToolbar className="toolbar__albums--AlConHeart">
                 <Button className="button__albums" onClick={() => { this.onShowAlbums() }}>Albums</Button>
                 <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div>
                 <Button className="button__albums" onClick={() => { this.onShowConcerts() }}>Concerts</Button>
               </ButtonToolbar>
               {/* <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div> */}
             </Panel>
-            <ButtonToolbar>
-            <Button className="button__albums" onClick={() => { this.onComeBackSearching() }}>Назад</Button>
-          </ButtonToolbar>
             <div className='albums__albums'>
               <div className='albums__concerts' ref="concerts">{concerts !== null ? concerts.map(concert =>
                 concert ? <Concert

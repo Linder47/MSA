@@ -113,10 +113,10 @@
   height: 30px;
   margin: 0 10px;
   position: relative;
-  top: 0;
+  top: 11px;
   transform: rotate(-45deg);
   width: 30px;
-  left: 368px;
+  left: 0px;
 }
 
 .heart:hover {
@@ -153,4 +153,31 @@
 }
 .heart--inSubs{
   cursor: default;
+}
+
+.button__albums--back {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 220px;
+  height: auto;
+  max-width: 220px;
+  background-color: #fff;
+  margin-top: -96px;
+  position: absolute;
+  z-index: 23;
+  right: 0;
+}
+
+.button__albums--back:focus {
+  outline: 0;
+}
+
+.toolbar__albums--AlConHeart {
+  padding-top: 10px;
+  height: 65px;
+}
+
+.mySubs--albums { 
+  margin-top: -96px;
 }
