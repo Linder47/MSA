@@ -4,6 +4,7 @@
   "private": true,
   "homepage": "https://linder47.github.io/MSA/",
   "dependencies": {
+    "gh-pages": "^2.0.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.1",
     "react-dom": "^16.2.0",

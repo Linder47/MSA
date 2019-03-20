@@ -109,12 +109,9 @@ class Albums extends Component {
   }
 
   onSubscribe = () => {
-    // localStorage.clear();
     if (!this.state.inSubscrubitions) {
-      console.log('all clear');
       let a = [];
       const b = localStorage.getItem('mySubscribtions') !== null || undefined ? JSON.parse(localStorage.getItem('mySubscribtions')) : null;
-      console.log('b ', b);
       let id;
       if (b === null) {
         id = 0;
@@ -131,7 +128,6 @@ class Albums extends Component {
       a.push(data);
       localStorage.setItem('mySubscribtions', JSON.stringify(a));
     }
-    console.log('bye');
   }
 
   onShowAlbums = () => {

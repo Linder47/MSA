@@ -89,8 +89,6 @@ class Main extends Component {
       this.setState({
         mySubsArr: subscrubs
       });
-      console.log(subscrubs);
-      console.log('mysubsarr', this.state.mySubsArr);
     }
   }
 
@@ -137,10 +135,7 @@ class Main extends Component {
         </div>
       );
     } else {
-      console.log(topArtists.artist);
       const newTopArtistsArr = topArtists.artist.length > 1 ? topArtists.artist.slice(0, 4) : topArtists.artist;
-      console.log(newTopArtistsArr);
-      //HEREHRE HRE HRE HERE 
       return (
         <div>
           <div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
