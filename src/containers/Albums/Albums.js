@@ -16,14 +16,16 @@ class Albums extends Component {
     chosenArtist: '',
     artistData: [],
     inSubscrubitions: false,
-    mySubsArr: null
+    mySubsArr: null,
+    //refreshAlbumsAndConcertsList:
   }
 
   componentWillMount() {
     if (sessionStorage.getItem('artistData')) {
       const artistData = JSON.parse(sessionStorage.getItem('artistData'));
-      const chosenArtist = artistData.name;
-      console.log('we are here!!! mbid: ', artistData.mbid);
+      const chosenArtist = artistData; //artistData.name
+
+      console.log('artistData from session: ', artistData);
 
       this.setState({
         artistData,
@@ -106,6 +108,11 @@ class Albums extends Component {
   onGoToSubSearch = (nameLink) => {
     const link = '/artist/' + nameLink;
     this.props.history.push(link);
+    console.log('GOSEARCH ', nameLink);
+    this.setState({
+      artistData: nameLink,
+      chosenArtist: nameLink
+    });
   }
 
   onSubscribe = () => {
@@ -147,6 +154,7 @@ class Albums extends Component {
 
   render() {
     const { error, isLoaded, albums, inSubscrubitions, concerts, chosenArtist } = this.state;
+    console.log('choseartist in render ', chosenArtist);
     const heartColor = inSubscrubitions ? "heart  heart--inSubs" : "heart";
     const mySubsContent = this.state.mySubsArr;
 
@@ -157,7 +165,7 @@ class Albums extends Component {
     } else if (!isLoaded) {
       return (
         <div><div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-          <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+          <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" key={artist.mbid} onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <div className='container  container--albums'>
             <Spin />
           </div>
@@ -167,7 +175,7 @@ class Albums extends Component {
       return (
         <div>
           <div className="mySubs  mySubs--albums"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" key={artist.mbid} onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <ButtonToolbar>
             <Button className="button__albums--back" onClick={() => { this.onComeBackSearching() }}>Back</Button>
           </ButtonToolbar>
@@ -176,7 +184,7 @@ class Albums extends Component {
               {/* <Panel.Title componentClass="h3" className="title">Albums</Panel.Title> */}
               <ButtonToolbar className="toolbar__albums--AlConHeart">
                 <Button className="button__albums" onClick={() => { this.onShowAlbums() }}>Albums</Button>
-                <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div>
+                <div className="subElementCont"><div className={heartColor} onClick={() => { this.onSubscribe() }}></div></div>
                 <Button className="button__albums" onClick={() => { this.onShowConcerts() }}>Concerts</Button>
               </ButtonToolbar>
               {/* <div className="subElementCont"><div class={heartColor} onClick={() => { this.onSubscribe() }}></div></div> */}
@@ -196,9 +204,9 @@ class Albums extends Component {
 
               </div>
               <div className='albums__cont' ref="albums">
-                {albums.album.map(album =>
+                {albums ? albums.album.map(album =>
                   album ?
-                    album.image[2]["#text"] ? <Album
+                    album.image[2]["#text"] ? <Album 
                       name={album.name}
                       key={album.name + album.id}
                       id={album.name + album.id}
@@ -207,7 +215,7 @@ class Albums extends Component {
                     />
                       : null
                     : <div className="errorText">There's no albums.</div>
-                )}
+                ) : null}
               </div>
             </div>
           </div>

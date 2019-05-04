@@ -71,13 +71,13 @@ class AlbumsInfo extends Component {
       return (
         <div>
           <div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+            <div className="mySubsList" ref="mySubsList" >{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" key = {artist.mbid} onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <div className="errorText">Error: {error.message}</div>;
       </div>)
     } else if (!isLoaded) {
       return (
         <div><div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-          <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+        <div className="mySubsList" ref="mySubsList" >{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" key = {artist.mbid} onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <div className='container  container--albums'>
             <Spin />
           </div>
@@ -85,7 +85,7 @@ class AlbumsInfo extends Component {
       )
     } else if (!albumData) {
       return <div><div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-        <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+        <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" key = {artist.mbid} onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
         <div className="container container--artist">
           <div className="errorText">Sorry, there is no information about this album.</div>
           <ButtonToolbar>

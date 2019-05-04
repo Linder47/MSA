@@ -97,6 +97,7 @@ class Main extends Component {
   }
 
   onGoToSubSearch = (nameLink) => {
+    sessionStorage.setItem('artistData', JSON.stringify(nameLink));
     const link = '/artist/' + nameLink;
     this.props.history.push(link);
   }
@@ -139,7 +140,7 @@ class Main extends Component {
       return (
         <div>
           <div className="mySubs"><div className="mySubsText" onClick={() => { this.onMySubs() }}>My Subscriptions</div>
-            <div className="mySubsList" ref="mySubsList">{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
+            <div className="mySubsList" ref="mySubsList" >{this.state.mySubsArr != null ? mySubsContent.map(artist => <div className="mySubsArtist" key = {artist.mbid} onClick={() => { this.onGoToSubSearch(artist.name) }}>{artist.name.slice(0, 24)}</div>) : null}</div> </div>
           <div className='main'>
             <UserSearch
               onAddTextChange={this.handleAddTextChange}
